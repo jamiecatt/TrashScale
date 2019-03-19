@@ -1,0 +1,127 @@
+// Lights
+#include <Adafruit_NeoPixel.h>
+#define PIN 6
+#define NUM_LEDS 8
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_RGBW + NEO_KHZ800);
+
+//Sensors
+
+/* FSR simple testing sketch.  <br>Connect one end of FSR to power, the other end to Analog 0.
+Then connect one end of a 10K resistor from Analog 0 to ground 
+*/
+int fsrPin = 0;     // the FSR and 10K pulldown are connected to a0
+int fsrReading;     // the analog reading from the FSR resistor divider
+ 
+void setup() {
+  Serial.begin(9600);   // Open Serial Port
+   strip.begin();
+   strip.show();
+}
+ 
+void loop() {
+
+  //Sensors
+  fsrReading = analogRead(fsrPin);  
+ 
+  Serial.println(fsrReading);     // The Raw Analog Reading
+  
+ // Lights To Sensor
+  if (fsrReading == 0) {
+    // Set Pixel To Off, Delay(1000)
+      strip.setPixelColor(0, 0, 0, 0);
+      strip.show();
+      
+  } 
+   
+else if (fsrReading < 100) {
+      strip.setPixelColor(0, 255, 255, 255); 
+      strip.show();
+          zerotrash();
+
+}
+else if ((fsrReading < 100)&&(fsrReading < 250)) {
+      strip.setPixelColor(0, 255, 255, 255); 
+      strip.setPixelColor(1, 0, 0, 255);
+        strip.show();
+          zerotrash();
+}
+else if ((fsrReading < 250)&&(fsrReading < 400)) {
+      strip.setPixelColor(0, 255, 255, 255); 
+      strip.setPixelColor(1, 0, 0, 255);
+      strip.setPixelColor(2, 0, 25, 255);
+        strip.show();
+          zerotrash();
+}
+else if ((fsrReading < 400)&&(fsrReading < 550)) {
+      strip.setPixelColor(0, 255, 255, 255); 
+      strip.setPixelColor(1, 0, 0, 255);
+      strip.setPixelColor(2, 0, 25, 255);
+      strip.setPixelColor(3, 0, 50, 255);
+        strip.show();
+          zerotrash();
+}
+else if ((fsrReading < 550)&&(fsrReading < 700)) {
+      strip.setPixelColor(0, 255, 255, 255); 
+      strip.setPixelColor(1, 0, 0, 255);
+      strip.setPixelColor(2, 0, 25, 255);
+      strip.setPixelColor(3, 0, 50, 255);
+      strip.setPixelColor(4, 0, 50, 255);
+        strip.show();
+
+          zerotrash();
+}
+else if ((fsrReading < 700)&&(fsrReading < 850)) {
+      strip.setPixelColor(0, 255, 255, 255); 
+      strip.setPixelColor(1, 0, 0, 255);
+      strip.setPixelColor(2, 0, 25, 255);
+      strip.setPixelColor(3, 0, 50, 255);
+      strip.setPixelColor(4, 0, 50, 255);
+      strip.setPixelColor(5, 0, 50, 255);
+        strip.show();
+          zerotrash();
+}
+else if ((fsrReading < 850)&&(fsrReading < 950)) {
+      strip.setPixelColor(0, 255, 255, 255); 
+      strip.setPixelColor(1, 0, 0, 255);
+      strip.setPixelColor(2, 0, 25, 255);
+      strip.setPixelColor(3, 0, 50, 255);
+      strip.setPixelColor(4, 0, 50, 255);
+      strip.setPixelColor(5, 0, 50, 255);
+      strip.setPixelColor(6, 0, 50, 255);
+
+        strip.show();
+
+          zerotrash();
+}
+else if ((fsrReading < 950)&&(fsrReading < 1020)) {
+      strip.setPixelColor(0, 255, 255, 255); 
+      strip.setPixelColor(1, 0, 0, 255);
+      strip.setPixelColor(2, 0, 25, 255);
+      strip.setPixelColor(3, 0, 50, 255);
+      strip.setPixelColor(4, 0, 50, 255);
+      strip.setPixelColor(5, 0, 50, 255);
+      strip.setPixelColor(6, 0, 50, 255);
+      strip.setPixelColor(7, 0, 50, 255);
+        strip.show();
+          zerotrash();
+}
+
+  delay(100);
+ 
+}
+
+// Call Function
+
+void zerotrash(){
+
+      strip.setPixelColor(0, 0, 0, 0);
+      strip.setPixelColor(1, 0, 0, 0);
+      strip.setPixelColor(2, 0, 0, 0);
+      strip.setPixelColor(3, 0, 0, 0);
+      strip.setPixelColor(4, 0, 0, 0);
+      strip.setPixelColor(5, 0, 0, 0);
+      strip.setPixelColor(6, 0, 0, 0);
+      strip.setPixelColor(7, 0, 0, 0);
+      strip.setPixelColor(8, 0, 0, 0);
+  
+  }
