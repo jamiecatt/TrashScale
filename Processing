@@ -1,0 +1,119 @@
+/**
+ * Simple Read
+ * 
+ * Read data from the serial port and change the color of a rectangle
+ * when a switch connected to a Wiring or Arduino board is pressed and released.
+ * This example works with the Wiring / Arduino program that follows below.
+ */
+import processing.serial.*;
+PImage img0;
+PImage img1;
+PImage img2;
+PImage img3;
+PImage img4;
+PImage img5;
+PImage img6;
+PImage img7;
+PImage img8;
+Serial myPort;  // Create object from Serial class
+int fsrReading;      // Data received from the serial port
+void setup() 
+{
+  fullScreen();
+  println(Serial.list());
+  
+  String portName = Serial.list()[0];
+  myPort = new Serial(this, "/dev/tty.usbmodem1421", 9600)
+  
+  img0=loadImage("01.png");
+  img1=loadImage("02.png");
+  img2=loadImage("03.png");
+  img3=loadImage("04.png");
+  img4=loadImage("05.png");
+  img5=loadImage("06.png");
+  img6=loadImage("07.png");
+  img7=loadImage("08.png");
+  img8=loadImage("Fill.png");
+  myPort.readString();
+}
+PImage drawImage = null;
+void draw()
+{
+    background(255);             // Set background to white
+    
+    String inString = myPort.readStringUntil('\n');
+ 
+    if (inString!= null) {
+ 
+      // trim off any whitespace;
+ 
+      inString = trim(inString);
+ 
+      //convert to an int and map to the screen height:
+ 
+      fsrReading = int(inString);
+      println(fsrReading);
+   }
+   
+   if (fsrReading == 0) {          // If the serial value is 0,
+    drawImage = img8;
+           image(img8,0,0,width,height);
+                 // set fill to white
+  } 
+   else if (fsrReading < 100) {          
+      drawImage = img0;
+           image(img0,0,0,width,height);
+    }
+   else if ((fsrReading < 100)&&(fsrReading < 250)) {         
+      drawImage = img1;
+           image(img1,0,0,width,height);
+    }
+    else if ((fsrReading < 250)&&(fsrReading < 400)) {         
+      drawImage = img2;
+           image(img2,0,0,width,height);
+    }
+   else if ((fsrReading < 400)&&(fsrReading < 550)) {         
+      drawImage = img3;
+           image(img3,0,0,width,height);
+    }
+      else if ((fsrReading < 550)&&(fsrReading < 700)) {         
+      drawImage = img4;
+           image(img4,0,0,width,height);
+    }
+    else if ((fsrReading < 700)&&(fsrReading < 850)) {          
+      drawImage = img5;
+           image(img5,0,0,width,height);
+    }
+   else if ((fsrReading < 850)&&(fsrReading < 950)) {         
+      drawImage = img6;
+           image(img6,0,0,width,height);
+    }
+   else if ((fsrReading < 950)&&(fsrReading < 1020)) {              // If the serial value is 0,
+      drawImage = img7;
+           image(img7,0,0,width,height);
+    }
+  //if (fsrReading == 0) {              // If the serial value is 0,
+  //  fill(255);                   // set fill to white
+  //} 
+  //else {                       // If the serial value is not 0,
+  //  fill(0);                 // set fill to black
+  //}
+  
+}
+/*
+// Wiring / Arduino Code
+// Code for sensing a switch status and writing the value to the serial port.
+int switchPin = 4;                       // Switch connected to pin 4
+void setup() {
+  pinMode(switchPin, INPUT);             // Set pin 0 as an input
+  Serial.begin(9600);                    // Start serial communication at 9600 bps
+}
+void loop() {
+  if (digitalRead(switchPin) == HIGH) {  // If switch is ON,
+    Serial.write(1);               // send 1 to Processing
+  } else {                               // If the switch is not ON,
+    Serial.write(0);               // send 0 to Processing
+  }
+  delay(100);                            // Wait 100 milliseconds
+}
+*/
